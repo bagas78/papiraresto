@@ -17,7 +17,7 @@
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
         <h3>General</h3>
-        <ul class="nav side-menu">
+        <ul class="nav side-menu"> 
           <?php if ($user['TIPE'] != 'Administrator' && $user['TIPE'] != 'Owner') : ?>
             <li style="display:none"><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
             <?php else : ?>
@@ -77,7 +77,8 @@
                 <li><a href="<?php echo base_url('karyawan/index') ?>">Data Karyawan</a></li>
                 <!-- <li><a href="<?php //echo base_url('mutasi/index')
                                   ?>">Mutasi Barang</a></li> -->
-                <li><a href="<?php echo base_url('stokopname/index') ?>">Actual Stok </a></li>
+                <!-- <li><a href="<?php echo base_url('stokopname/index') ?>">Actual Stok </a></li> -->
+                <li><a href="<?php echo base_url('actual') ?>">Actual Stok </a></li>
                 <!--<li><a href="<?php echo base_url('barang/barang_operasional') ?>">Barang Operasional</a></li>  -->
                 <li><a href="<?php echo base_url('barang/barang_keluar') ?>">Pengeluaran Bahan Baku</a></li>
               </ul>
@@ -107,7 +108,10 @@
                     <li><a href="<?php echo base_url('laporan/pembelian') ?>">Laporan Pembelian</a></li>
                     <!-- <li><a href="<?php //echo base_url('laporan/mutasi')
                                       ?>">Laporan Mutasi Barang</a></li> -->
-                    <li><a href="<?php echo base_url('laporan/stokopname') ?>">Laporan Actual Stok </a></li>
+                    <!-- <li><a href="<?php echo base_url('laporan/stokopname') ?>">Laporan Actual Stok </a></li> -->
+
+                    <li><a href="<?php echo base_url('actual/laporan') ?>">Laporan Actual Stok </a></li>
+
                     <li><a href="<?php echo base_url('laporan/kas_actual') ?>">Laporan Actual Kas </a></li>
                     <!-- <li><a href="<?php echo base_url('laporan/laba_rugi') ?>">Laporan Laba Rugi</a></li> -->
                     <!-- <li><a href="<?php echo base_url('laporan/kas') ?>">Laporan Kas</a></li> -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Mar 2022 pada 01.14
+-- Waktu pembuatan: 13 Mar 2022 pada 05.43
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -35039,7 +35039,9 @@ INSERT INTO `stok_opname` (`ID_STOK_OPNAME`, `ID_BARANG`, `STOK`, `STOK_NYATA`, 
 (5275, 657, '-10', '10', '20', '0', '', '2022-02-28 22:39:36', 1, 1),
 (5276, 658, '0', '1', '1', '0', '', '2022-02-28 22:39:48', 1, 1),
 (5277, 659, '0', '4', '4', '0', '', '2022-02-28 22:40:19', 1, 1),
-(5278, 420, '11', '0', '-11', '0', '', '2022-03-07 12:15:05', 1, 1);
+(5278, 420, '11', '0', '-11', '0', '', '2022-03-07 12:15:05', 1, 1),
+(5279, 419, '20', '10', '-10', '0', '', '2022-03-10 10:37:40', 1, 1),
+(5280, 419, '20', '5', '-15', '0', '', '2022-03-11 09:47:53', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -35088,6 +35090,31 @@ CREATE TABLE `t_diskon` (
 INSERT INTO `t_diskon` (`diskon_id`, `diskon_nama`, `diskon_persen`, `diskon_hapus`, `diskon_tanggal`) VALUES
 (7, '10%', '10', 0, '2022-01-13'),
 (8, '25%', '25', 0, '2022-01-13');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_opname`
+--
+
+CREATE TABLE `t_opname` (
+  `opname_id` int(11) NOT NULL,
+  `opname_user` text NOT NULL,
+  `opname_barang` text NOT NULL,
+  `opname_stok` text NOT NULL,
+  `opname_stok_actual` text NOT NULL,
+  `opname_stok_selisih` text NOT NULL,
+  `opname_tanggal` text NOT NULL DEFAULT current_timestamp(),
+  `opname_tanggal_actual` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `t_opname`
+--
+
+INSERT INTO `t_opname` (`opname_id`, `opname_user`, `opname_barang`, `opname_stok`, `opname_stok_actual`, `opname_stok_selisih`, `opname_tanggal`, `opname_tanggal_actual`) VALUES
+(5, '1', '419', '20', '15', '-5', '2022-03-11 14:54:10', '2022-03-12'),
+(7, '1', '420', '11', '2', '-9', '2022-03-11 12:12:37', '2022-03-12');
 
 -- --------------------------------------------------------
 
@@ -36404,7 +36431,18 @@ INSERT INTO `user_log` (`ID_LOG`, `ID_USER`, `WAKTU`) VALUES
 (1246, 1, '02/03/2022 23:22:42'),
 (1247, 1, '06/03/2022 21:42:42'),
 (1248, 1, '07/03/2022 12:08:05'),
-(1249, 1, '10/03/2022 07:04:18');
+(1249, 1, '10/03/2022 07:04:18'),
+(1250, 1, '10/03/2022 10:22:13'),
+(1251, 1, '10/03/2022 10:36:38'),
+(1252, 1, '11/03/2022 08:19:40'),
+(1253, 1, '11/03/2022 13:51:35'),
+(1254, 1, '11/03/2022 22:44:58'),
+(1255, 1, '12/03/2022 07:36:14'),
+(1256, 1, '12/03/2022 12:40:11'),
+(1257, 1, '12/03/2022 18:12:02'),
+(1258, 1, '12/03/2022 22:03:21'),
+(1259, 1, '12/03/2022 22:38:07'),
+(1260, 1, '13/03/2022 07:46:22');
 
 --
 -- Indexes for dumped tables
@@ -36584,6 +36622,12 @@ ALTER TABLE `t_diskon`
   ADD PRIMARY KEY (`diskon_id`);
 
 --
+-- Indeks untuk tabel `t_opname`
+--
+ALTER TABLE `t_opname`
+  ADD PRIMARY KEY (`opname_id`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -36742,7 +36786,7 @@ ALTER TABLE `satuan`
 -- AUTO_INCREMENT untuk tabel `stok_opname`
 --
 ALTER TABLE `stok_opname`
-  MODIFY `ID_STOK_OPNAME` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5279;
+  MODIFY `ID_STOK_OPNAME` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5281;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
@@ -36757,6 +36801,12 @@ ALTER TABLE `t_diskon`
   MODIFY `diskon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT untuk tabel `t_opname`
+--
+ALTER TABLE `t_opname`
+  MODIFY `opname_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -36766,7 +36816,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `user_log`
 --
 ALTER TABLE `user_log`
-  MODIFY `ID_LOG` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1250;
+  MODIFY `ID_LOG` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1261;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
