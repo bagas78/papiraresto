@@ -8,10 +8,31 @@ class Barang extends CI_Controller
 	{
 		parent::__construct();
 		cek_login();
-		$this->load->model('Barang_m');
+		$this->load->model('Barang_m'); 
 	}
 	public function index() 
 	{
+
+		//date format indonesia
+		date_default_timezone_set("Asia/Bangkok");
+
+		//switch stok
+		$brg = $this->db->query("SELECT * FROM barang WHERE NOT ACTUAL = '' AND IS_ACTIVE = 1")->result_array();
+
+		foreach ($brg as $key) {
+			if ($key['ACTUAL'] != '') {
+				
+				$set = array(
+								'STOK' => $key['ACTUAL'],
+								'ACTUAL_TANGGAL' => NULL,
+								'ACTUAL' => NUll,
+							);
+				$this->db->where('ID_BARANG',$key['ID_BARANG']);
+				$this->db->set($set);
+				$this->db->update('barang');
+			}
+		}
+
 		$data = array(
 			'title'    => 'Bahan Baku',
 			'user'     => infoLogin(),
@@ -22,7 +43,9 @@ class Barang extends CI_Controller
 			'content'  => 'barang/item/index',
 			'item'	   => $this->Barang_m->getAllData()
 		);
+
 		$this->load->view('templates/main', $data);
+		
 	} 
 
 	public function LoadData()

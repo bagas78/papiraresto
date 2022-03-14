@@ -11,13 +11,13 @@ class Barang_m extends CI_Model
     {
         if ($this->session->userdata('tipe') == 'Gudang') {
             $sql = "SELECT a.ID_BARANG, a.KODE_BARANG, a.BARCODE ,a.NAMA_BARANG, a.IS_BAHAN_BAKU, b.SATUAN, c.KATEGORI, a.HARGA_BELI, 
-        a.HARGA_JUAL, a.STOK FROM barang a LEFT JOIN satuan b ON b.ID_SATUAN = a.ID_SATUAN LEFT JOIN kategori c ON c.ID_KATEGORI = a.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND a.is_bahan_baku = 1";
+        a.HARGA_JUAL, a.STOK, a.ACTUAL, a.ACTUAL_TANGGAL FROM barang a LEFT JOIN satuan b ON b.ID_SATUAN = a.ID_SATUAN LEFT JOIN kategori c ON c.ID_KATEGORI = a.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND a.is_bahan_baku = 1";
         } else if ($this->session->userdata('tipe') == 'Kasir') {
             $sql = "SELECT a.ID_BARANG, a.KODE_BARANG, a.BARCODE ,a.NAMA_BARANG, a.IS_BAHAN_BAKU, b.SATUAN, c.KATEGORI, a.HARGA_BELI, 
-        a.HARGA_JUAL, a.STOK FROM barang a LEFT JOIN satuan b ON b.ID_SATUAN = a.ID_SATUAN LEFT JOIN kategori c ON c.ID_KATEGORI = a.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND a.is_bahan_baku = 0";
+        a.HARGA_JUAL, a.STOK, a.ACTUAL, a.ACTUAL_TANGGAL FROM barang a LEFT JOIN satuan b ON b.ID_SATUAN = a.ID_SATUAN LEFT JOIN kategori c ON c.ID_KATEGORI = a.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND a.is_bahan_baku = 0";
         } else {
             $sql = "SELECT a.ID_BARANG, a.KODE_BARANG, a.BARCODE ,a.NAMA_BARANG, a.IS_BAHAN_BAKU, b.SATUAN, c.KATEGORI, a.HARGA_BELI, 
-        a.HARGA_JUAL, a.STOK FROM barang a LEFT JOIN satuan b ON b.ID_SATUAN = a.ID_SATUAN LEFT JOIN kategori c ON c.ID_KATEGORI = a.ID_KATEGORI WHERE a.IS_ACTIVE = 1";
+        a.HARGA_JUAL, a.STOK, a.ACTUAL, a.ACTUAL_TANGGAL FROM barang a LEFT JOIN satuan b ON b.ID_SATUAN = a.ID_SATUAN LEFT JOIN kategori c ON c.ID_KATEGORI = a.ID_KATEGORI WHERE a.IS_ACTIVE = 1";
         }
         return $this->db->query($sql)->result_array();
     }

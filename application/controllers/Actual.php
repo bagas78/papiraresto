@@ -11,7 +11,7 @@ class Actual extends CI_Controller
 		cek_user();
 		$this->load->model('Stokopname_m');
 		date_default_timezone_set('Asia/Jakarta');
-	}
+	} 
 
 	public function index()
 	{
@@ -70,6 +70,8 @@ class Actual extends CI_Controller
 			$this->db->where('opname_id',$id_actual);
 			$this->db->set($set);
 			$this->db->update('t_opname');
+
+
 		} else {
 			// insert
 			$set = array(
@@ -83,7 +85,17 @@ class Actual extends CI_Controller
 
 			$this->db->set($set);
 			$this->db->insert('t_opname');
+
 		}
+
+		//update barang
+		$set1 = array(
+						'ACTUAL' => $actual,
+						'ACTUAL_TANGGAL' => $besok, 
+					);
+		$this->db->where('ID_BARANG',$id_barang);
+		$this->db->set($set1);
+		$this->db->update('barang');
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><aria-hidden="true">×</span> </button><b>Success!</b> Data Actual sudah finish</div>');
 
@@ -154,7 +166,7 @@ class Actual extends CI_Controller
 		$data['awal'] = $_POST['awal'];
 		$data['akhir'] = $_POST['akhir'];
 
-		$data['kategori_data'] = $this->db->query("SELECT * FROM barang AS a JOIN kategori AS b ON a.ID_KATEGORI = b.ID_KATEGORI WHERE a.IS_ACTIVE = 1 GROUP BY a.ID_KATEGORI")->result_array();
+		$data['kategori_data'] = $this->db->query("SELECT * FROM barang AS a JOIN kategori AS b ON a.ID_KATEGORI = b.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND b.KATEGORI_IS_BARANG = 1 GROUP BY a.ID_KATEGORI")->result_array();
 		$data['barang_data'] = $this->db->query("SELECT * FROM barang AS a LEFT JOIN t_opname AS b ON a.ID_BARANG = b.opname_barang LEFT JOIN user AS c ON b.opname_user = c.ID_USER WHERE a.IS_ACTIVE = 1")->result_array();
 
 		$this->load->view('report/report_actual',$data);
