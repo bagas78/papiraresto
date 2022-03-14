@@ -21,7 +21,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/login');
             $this->load->view('templates/auth_footer');
         } else {
-            $this->_login();
+            $this->_login(); 
         }
     }
     private function _user_log()
@@ -47,6 +47,24 @@ class Auth extends CI_Controller
         if ($user) {
 
             if (password_verify($pswd, $user['PASSWORD'])) {
+
+                //switch stok actual
+                $brg = $this->db->query("SELECT * FROM barang WHERE NOT ACTUAL = '' AND IS_ACTIVE = 1")->result_array();
+
+                foreach ($brg as $key) {
+                    if ($key['ACTUAL'] != '') {
+                        
+                        $set = array(
+                                        'STOK' => $key['ACTUAL'],
+                                        'ACTUAL_TANGGAL' => NULL,
+                                        'ACTUAL' => NUll,
+                                    );
+                        $this->db->where('ID_BARANG',$key['ID_BARANG']);
+                        $this->db->set($set);
+                        $this->db->update('barang');
+                    }
+                }
+
                 $data = [
                     'id_user'      => $user['ID_USER'],
                     'username'     => $user['USERNAME'],
@@ -64,6 +82,7 @@ class Auth extends CI_Controller
                     $this->_user_log();
                     redirect('barang');
                 }
+
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade in" role="alert"> <b>Error :</b> Password Salah. </div>');
                 redirect('auth');
