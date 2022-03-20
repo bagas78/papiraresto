@@ -7,7 +7,7 @@ class Barang_m extends CI_Model
     protected $table = 'barang'; 
     protected $primary = 'id_barang';
 
-    public function getAllData()
+    public function getAllData() 
     {
         if ($this->session->userdata('tipe') == 'Gudang') {
             $sql = "SELECT a.ID_BARANG, a.KODE_BARANG, a.BARCODE ,a.NAMA_BARANG, a.IS_BAHAN_BAKU, b.SATUAN, c.KATEGORI, a.HARGA_BELI, 
@@ -129,15 +129,21 @@ class Barang_m extends CI_Model
         return $this->db->query($sql)->result_array();
     }
 
-    public function loadkeluar()
+    public function loadkeluar($tgl = '')
     {
-        $this->db->join('satuan', 'barang.ID_SATUAN = satuan.ID_SATUAN');
-        $this->db->order_by('barang.NAMA_BARANG', 'ASC');
-        return $this->db->get('barang')->result_array();
+        // $this->db->join('satuan', 'barang.ID_SATUAN = satuan.ID_SATUAN');
+        // $this->db->order_by('barang.NAMA_BARANG', 'ASC');
+        // return $this->db->get('barang')->result_array();
+
+        if ($tgl == '') {
+            $date = date('Y-m-d');
+        } else {
+            $date = date($tgl);
+        }
+
         
-        // $sql = "SELECT d.id_brg_operasional, a.barcode, a.nama_barang, d.jenis, d.nilai, d.tanggal, d.jml, c.satuan, b.kategori FROM  barang a, kategori b, satuan c, barang_operasional d
-        // WHERE a.id_satuan = c.id_satuan AND a.id_kategori = b.id_kategori AND d.id_barang = a.id_barang AND d.jenis = 'Barang Keluar'";
-        // return $this->db->query($sql)->result_array();
+        $sql = "SELECT *, SUM(a.jml) AS total FROM barang_operasional AS a JOIN barang AS b ON a.id_barang = b.ID_BARANG JOIN satuan AS c ON b.ID_SATUAN = c.ID_SATUAN WHERE DATE_FORMAT(a.tanggal, '%Y-%m-%d') = '$date' GROUP BY a.id_barang";
+        return $this->db->query($sql)->result_array();
     }
 
     public function Save_keluar()
@@ -161,6 +167,8 @@ class Barang_m extends CI_Model
 
             $this->db->insert('barang_operasional', $data);
 
+
+            //kurangi stok
             $hasil = $stok - $jml;
             $update = "update barang set stok = '$hasil' where id_barang = '$id'";
             $this->db->query($update);

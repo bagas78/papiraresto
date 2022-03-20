@@ -12,9 +12,9 @@
  					<input type="hidden" id="id_menu" name="id_menu" value="">
 
  					<div id="racikan_data"> 					
-     					<table class="table datatable-racikan">
+     					<table class="table">
      					<thead>
-                            <tr>
+                            <tr> 
                                 <th>Bahan</th>
                                 <th>Qty</th>
                                 <th>Satuan</th>

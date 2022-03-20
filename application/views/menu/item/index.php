@@ -4,7 +4,7 @@
 		    <div class="page-title">
 		      <div class="title_left">
 		        <h3><?php echo $title ?></h3>
-		      </div>
+		      </div> 
 		    </div>
 		    <div class="clearfix"></div>
 		    <div class="row">

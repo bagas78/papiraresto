@@ -9,7 +9,7 @@ class Menu extends CI_Controller
 		parent::__construct();
 		cek_login();
 		$this->load->model('Menu_m');
-	}
+	} 
 	public function index()
 	{ 
 		$data = array(

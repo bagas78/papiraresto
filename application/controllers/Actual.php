@@ -13,7 +13,7 @@ class Actual extends CI_Controller
 		date_default_timezone_set('Asia/Jakarta');
 	} 
 
-	public function index()
+	public function index() 
 	{
 		$data = array(
 			'title'    => 'Data Stok Opname',
@@ -32,7 +32,7 @@ class Actual extends CI_Controller
 			$date = date('Y-m-d');
 		}
 
-		$data['opname'] = $this->db->query("SELECT * FROM t_opname as a JOIN user AS b ON a.opname_user = b.ID_USER RIGHT JOIN barang AS c ON a.opname_barang = c.ID_BARANG AND DATE_FORMAT(a.opname_tanggal,'%Y-%m-%d') = '$date'")->result_array();
+		$data['opname'] = $this->db->query("SELECT * FROM t_opname as a JOIN user AS b ON a.opname_user = b.ID_USER RIGHT JOIN barang AS c ON a.opname_barang = c.ID_BARANG AND DATE_FORMAT(a.opname_tanggal,'%Y-%m-%d') = '$date' JOIN kategori as d ON c.ID_KATEGORI = d.ID_KATEGORI WHERE c.IS_ACTIVE = 1")->result_array();
 
 		$this->load->view('templates/main', $data);
 	}

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Barang extends CI_Controller
+class Barang extends CI_Controller 
 {
 
 	public function __construct()
@@ -149,12 +149,19 @@ class Barang extends CI_Controller
 
 	public function barang_keluar()
 	{
+		if (@$_GET['date']) {
+			$tgl = $_GET['date'];
+		} else {
+			$tgl = '';
+		}
+		
+
 		$data = array(
 			'title'    => 'Pengeluaran Bahan Baku',
 			'user'     => infoLogin(),
 			'content'  => 'barang/barang_keluar/index',
 			'toko'     => $this->db->get('profil_perusahaan')->row(),
-			'load'     => $this->Barang_m->loadkeluar()
+			'load'     => $this->Barang_m->loadkeluar($tgl)
 		);
 		$this->load->view('templates/main', $data);
 	}

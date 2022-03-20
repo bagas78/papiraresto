@@ -7,6 +7,7 @@ class Report extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('Barang_m'); 
 		cek_login();
 	}
 
@@ -171,11 +172,12 @@ class Report extends CI_Controller
 		$this->load->view('report/report_brg_keluar', $this->data);
 	}
 	    
-	public function barang_bahan_keluar(){
-	    $this->data['awal'] = $this->input->get('date');
-		$this->data['akhir'] = $this->input->get('date');
+	public function barang_bahan_keluar($tgl){
+	 //    $this->data['awal'] = $this->input->get('date');
+		// $this->data['akhir'] = $this->input->get('date'); 
 		
 		$this->data['profil'] = $this->db->get('profil_perusahaan')->row_array();
+		$this->data['data'] = $this->Barang_m->loadkeluar($tgl);
 		$this->load->view('report/report_brg_bahan_keluar', $this->data);
 	}
 	

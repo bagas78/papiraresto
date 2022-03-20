@@ -7,7 +7,7 @@
     <div class="profile clearfix">
       <div class="profile_pic">
         <img src="<?php echo base_url('assets/production/') ?>images/user.png" alt="..." class="img-circle profile_img">
-      </div>
+      </div> 
       <div class="profile_info">
         <span>Welcome,</span>
         <h2><?php echo $user['NAMA_LENGKAP'] ?></h2>
@@ -116,7 +116,7 @@
                     <!-- <li><a href="<?php echo base_url('laporan/laba_rugi') ?>">Laporan Laba Rugi</a></li> -->
                     <!-- <li><a href="<?php echo base_url('laporan/kas') ?>">Laporan Kas</a></li> -->
                     <!-- <li><a href="<?php echo base_url('laporan/kas_bank') ?>">Laporan Kas Bank</a></li> -->
-                    <!-- <li><a href="<?php echo base_url('laporan/barang_operasional') ?>">Laporan Barang Operasional</a></li> -->
+                    <!-- <li><a href="<?php echo base_url('laporan/barang_operasional') ?>">Laporan Barang Operasional</a></li>
             
                     <!-- <li><a href="<?php echo base_url('laporan/hutang') ?>">Laporan Hutang</a></li> -->
                     <!-- <li><a href="<?php echo base_url('laporan/piutang') ?>">Laporan Piutang</a></li> -->
