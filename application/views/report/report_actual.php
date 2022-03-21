@@ -14,8 +14,8 @@ $alpha = 1;
 foreach ($kategori_data as $kat) {
 
     $pdf->Cell(0, 1, '', 0, 1, 'C');
-    
-    //kategori
+     
+    //kategori 
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Times', 'B', 10);
     $pdf->Cell(189, 8, strtoupper($alpha++ . '. ' . $kat['KATEGORI']), 1, 1);
@@ -43,12 +43,31 @@ foreach ($kategori_data as $kat) {
             $pdf->Cell(25, 6, '-', 1, 0, 'C');
             $pdf->Cell(58, 6, $bar['NAMA_BARANG'], 1, 0);
 
-            $pdf->Cell(11, 6, $bar['opname_stok_actual'] != '' && date($bar['opname_tanggal_actual']) == $d->format("Y-m-d") ? $bar['opname_stok_actual'] : $bar['STOK'], 1, 0, 'R');       
-            $pdf->Cell(18, 6, $bar['opname_stok_actual'] != '' && date_format(date_create($bar['opname_tanggal']), 'Y-m-d') == $d->format("Y-m-d")? $bar['opname_stok_actual']:'', 1, 0, 'R');
+            $ok = '';
+            foreach ($opname_data as $op) {
+                
+                if (date($op['opname_tanggal_actual']) == $d->format("Y-m-d") && $bar['ID_BARANG'] == $op['opname_barang']) {
+                    // ada 
+                    $pdf->Cell(11, 6, $op['opname_stok'], 1, 0, 'R');       
+                    $pdf->Cell(18, 6, $op['opname_stok_actual'], 1, 0, 'R');
 
-            $pdf->Cell(15, 6, $bar['opname_stok_selisih'] != '' && date_format(date_create($bar['opname_tanggal']), 'Y-m-d') == $d->format("Y-m-d")? $bar['opname_stok_selisih']:'', 1, 0, 'R');
+                    $pdf->Cell(15, 6, $op['opname_stok_selisih'], 1, 0, 'R');
 
-            $pdf->Cell(25, 6, $bar['NAMA_LENGKAP'] != '' && date_format(date_create($bar['opname_tanggal']), 'Y-m-d') == $d->format("Y-m-d")? $bar['NAMA_LENGKAP']:'', 1, 0, 'C');
+                    $pdf->Cell(25, 6, $op['NAMA_LENGKAP'], 1, 0, 'C');
+
+                    $ok = 1;
+                }
+            }
+
+            if ($ok != 1) {
+                //tidak ada
+                $pdf->Cell(11, 6, $bar['STOK'], 1, 0, 'R');       
+                $pdf->Cell(18, 6, ' ', 1, 0, 'R');
+
+                $pdf->Cell(15, 6, ' ', 1, 0, 'R');
+
+                $pdf->Cell(25, 6, ' ', 1, 0, 'C');
+            }
 
             $pdf->Cell(30, 6, '', 0, 1);
 

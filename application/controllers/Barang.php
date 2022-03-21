@@ -11,7 +11,7 @@ class Barang extends CI_Controller
 		$this->load->model('Barang_m'); 
 	}
 	public function index() 
-	{
+	{ 
 
 		$data = array(
 			'title'    => 'Bahan Baku',
@@ -190,5 +190,20 @@ class Barang extends CI_Controller
 		}
 	
 		redirect('barang/barang_keluar');
+	}
+	public function reset($id){
+
+		$this->db->where('ID_BARANG',$id);
+		$this->db->set('STOK',0);
+
+		if ($this->db->update('barang')) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button><b>Success!</b> Stok berhasil di reset.</div>');
+
+		} else {
+			
+			$this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button><b>Gagal!</b> Stok gagal di reset.</div>');
+		}
+	
+		redirect('barang/index');
 	}
 }

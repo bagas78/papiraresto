@@ -53,10 +53,10 @@
 		$('#diskon1').val(0);
 		$('#diskonbeli').val(0);
 		$('#selisih').val(0);
-		// grafikKategori();
-		// grafikKas();
-		// grafikPendapatan();
-		// grafikTerlaris();
+		grafikKategori();
+		grafikKas();
+		grafikPendapatan();
+		grafikTerlaris();
 	})
 	</script>
   </body>

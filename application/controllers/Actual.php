@@ -7,11 +7,11 @@ class Actual extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		cek_login();
+		cek_login(); 
 		cek_user();
 		$this->load->model('Stokopname_m');
 		date_default_timezone_set('Asia/Jakarta');
-	} 
+	}  
 
 	public function index() 
 	{
@@ -32,7 +32,7 @@ class Actual extends CI_Controller
 			$date = date('Y-m-d');
 		}
 
-		$data['opname'] = $this->db->query("SELECT * FROM t_opname as a JOIN user AS b ON a.opname_user = b.ID_USER RIGHT JOIN barang AS c ON a.opname_barang = c.ID_BARANG AND DATE_FORMAT(a.opname_tanggal,'%Y-%m-%d') = '$date' JOIN kategori as d ON c.ID_KATEGORI = d.ID_KATEGORI WHERE c.IS_ACTIVE = 1")->result_array();
+		$data['opname'] = $this->db->query("SELECT * FROM t_opname as a JOIN user AS b ON a.opname_user = b.ID_USER RIGHT JOIN barang AS c ON a.opname_barang = c.ID_BARANG AND DATE_FORMAT(a.opname_tanggal,'%Y-%m-%d') = '$date' JOIN kategori as d ON c.ID_KATEGORI = d.ID_KATEGORI WHERE c.IS_ACTIVE = 1 ORDER BY c.ID_BARANG ASC")->result_array();
 
 		$this->load->view('templates/main', $data);
 	}
@@ -167,7 +167,8 @@ class Actual extends CI_Controller
 		$data['akhir'] = $_POST['akhir'];
 
 		$data['kategori_data'] = $this->db->query("SELECT * FROM barang AS a JOIN kategori AS b ON a.ID_KATEGORI = b.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND b.KATEGORI_IS_BARANG = 1 GROUP BY a.ID_KATEGORI")->result_array();
-		$data['barang_data'] = $this->db->query("SELECT * FROM barang AS a LEFT JOIN t_opname AS b ON a.ID_BARANG = b.opname_barang LEFT JOIN user AS c ON b.opname_user = c.ID_USER WHERE a.IS_ACTIVE = 1")->result_array();
+		$data['barang_data'] = $this->db->query("SELECT * FROM barang WHERE IS_ACTIVE = 1")->result_array();
+		$data['opname_data'] = $this->db->query("SELECT * FROM t_opname as a JOIN user as b ON a.opname_user = b.ID_USER")->result_array();
 
 		$this->load->view('report/report_actual',$data);
 	}
