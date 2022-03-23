@@ -6,7 +6,7 @@
 		    <div class="page-title">
 		      <div class="title_left">
 		        <h3><?php echo $title ?></h3>
-		      </div>
+		      </div> 
 		    </div>
 		    <div class="clearfix"></div> 
 		    <div class="row"> 
@@ -16,6 +16,9 @@
 		            <?php include 'inputitem.php' ?>
 		            <button type="button" class="btn btn-sm btn-primary" onclick="tambahitem()" title="Tambah Data" id="tambahkaryawan"><i class="fa fa-plus"></i> Tambah Data</button>
 		            <button type="button" class="btn btn-sm btn-default" onclick="importExcel()" title="Import Data" id="importExcel"><i class="fa fa-upload"></i> Import Excel</button> 
+		            
+		            <button onclick="reset()" class="btn btn-danger btn-sm" title="Reset Stok"><i class="fa fa-minus-circle"> Reset All Stok</i></button>
+
 		            <ul class="nav navbar-right panel_toolbox">
 		              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 		              </li>
@@ -55,7 +58,6 @@
 		                    <!-- <td><?php echo $i['HARGA_JUAL'] ?></td>  -->
 		                    <td><?php echo $i['STOK'] ?></td>
 		                    <td>
-		                      <a href="<?php echo base_url('barang/reset/'.$i['ID_BARANG']) ?>" class="btn btn-warning btn-xs" title="Reset Stok"><i class="fa fa-minus-circle"></i></a>
 		                      <a href="<?php echo base_url('barang/edit/') . encrypt_url($i['ID_BARANG']) ?>" class="btn btn-primary btn-xs" title="Edit Data"><i class="fa fa-edit"></i></a>
 		                      <a href="#" class="btn btn-danger btn-xs" title="Hapus Data" onclick="hapusbarang('<?php echo $i['ID_BARANG'] ?>')"><i class="fa fa-trash "></i></a>
 		                    </td>
@@ -69,6 +71,7 @@
 		    </div>
 		  </div>
 		</div>
+
 		<?php include 'import.php' ?>
 
 <script type="text/javascript">
@@ -93,6 +96,28 @@
 			if (result.value) {
 				$.ajax({
 					url: base_url + "barang/hapusbarang/" + e,
+					type: "post",
+					success: function (data) {
+						window.location = base_url + "barang/index"
+					}
+				})
+			}
+		})
+	}
+
+	function reset() {
+		Swal.fire({
+			title: "Are you sure ?", 
+			text: "Reset all stock",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!"
+		}).then((result) => {
+			if (result.value) {
+				$.ajax({
+					url: base_url + "barang/reset/",
 					type: "post",
 					success: function (data) {
 						window.location = base_url + "barang/index"

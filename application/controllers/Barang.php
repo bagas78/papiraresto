@@ -191,9 +191,8 @@ class Barang extends CI_Controller
 	
 		redirect('barang/barang_keluar');
 	}
-	public function reset($id){
+	public function reset(){
 
-		$this->db->where('ID_BARANG',$id);
 		$this->db->set('STOK',0);
 
 		if ($this->db->update('barang')) {

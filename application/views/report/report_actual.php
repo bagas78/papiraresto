@@ -19,7 +19,7 @@ foreach ($kategori_data as $kat) {
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFont('Times', 'B', 10);
     $pdf->Cell(189, 8, strtoupper($alpha++ . '. ' . $kat['KATEGORI']), 1, 1);
-
+ 
     //header
     $pdf->SetFont('Times', 'B', 8);
     $pdf->Cell(7, 6, 'NO', 1, 0, 'C');
@@ -45,8 +45,10 @@ foreach ($kategori_data as $kat) {
 
             $ok = '';
             foreach ($opname_data as $op) {
-                
-                if (date($op['opname_tanggal_actual']) == $d->format("Y-m-d") && $bar['ID_BARANG'] == $op['opname_barang']) {
+
+                $dt = date_create($op['opname_tanggal']);
+
+                if (date_format($dt, 'Y-m-d') == $d->format("Y-m-d") && $bar['ID_BARANG'] == $op['opname_barang']) {
                     // ada 
                     $pdf->Cell(11, 6, $op['opname_stok'], 1, 0, 'R');       
                     $pdf->Cell(18, 6, $op['opname_stok_actual'], 1, 0, 'R');
