@@ -18,7 +18,7 @@
                       </li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
-                    </ul>
+                    </ul> 
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

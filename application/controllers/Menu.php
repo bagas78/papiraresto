@@ -48,7 +48,11 @@ class Menu extends CI_Controller
 	}
 	public function hapusbarang($id = '')
 	{
-		$this->Menu_m->Delete($id);
+		//$this->Menu_m->Delete($id);
+
+		$this->db->where('ID_BARANG',$id);
+		$this->db->delete('menu');
+
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button><b>Success!</b> Data Menu berhasil dihapus.</div>');
 	}
 

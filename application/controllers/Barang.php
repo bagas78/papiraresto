@@ -12,7 +12,7 @@ class Barang extends CI_Controller
 	}
 	public function index() 
 	{ 
-
+ 
 		$data = array(
 			'title'    => 'Bahan Baku',
 			'user'     => infoLogin(),
@@ -56,7 +56,11 @@ class Barang extends CI_Controller
 	}
 	public function hapusbarang($id = '')
 	{
-		$this->Barang_m->Delete($id);
+		//$this->Barang_m->Delete($id);
+
+		$this->db->where('ID_BARANG',$id);
+		$this->db->delete('barang');
+
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button><b>Success!</b> Data Barang berhasil dihapus.</div>');
 	}
 

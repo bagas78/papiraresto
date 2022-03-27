@@ -10,7 +10,7 @@ var tablekaryawan = $('#datakaryawan').DataTable({
 	"aoColumns": [{
 			"mDataProp": "KODE_KARYAWAN",
 			bSearchable: true
-		},
+		}, 
 		{
 			"mDataProp": "NAMA_KARYAWAN",
 			bSearchable: true
@@ -160,7 +160,7 @@ var tableKategori = $('#datakategori').DataTable({
 		{
 			"mDataProp": function (data, type, val) {
 				pKode = data.ID_KATEGORI;
-				var btn = '<a href="#" class="btn btn-primary btn-xs" title="Edit Data" onclick="editkategori(' + pKode + ')"><i class="fa fa-edit"></i></a> \n\ <a href="#" class="btn btn-danger btn-xs" title="Hapus Data" onclick="hapuskategori(' + pKode + ')"><i class="fa fa-trash "></i></a>';
+				var btn = '<a href="#" class="btn btn-primary btn-xs" title="Edit Data" onclick="editkategori(' + pKode + ')"><i class="fa fa-edit"></i></a> \n\ <a href="#" class="btn btn-danger btn-xs" title="Hapus Data" onclick="delete_kat(' + pKode + ')"><i class="fa fa-trash "></i></a>';
 
 				return (btn).toString();
 			},

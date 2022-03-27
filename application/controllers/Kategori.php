@@ -11,7 +11,7 @@ class Kategori extends CI_Controller
 		$this->load->model('Kategori_m');
 	}
 	public function index()
-	{
+	{ 
 		$data = array(
 			'title'    => 'Kategori',
 			'user'     => infoLogin(),
@@ -52,7 +52,11 @@ class Kategori extends CI_Controller
 
 	public function hapuskategori($id = '')
 	{
-		$this->Kategori_m->Delete($id);
+		//$this->Kategori_m->Delete($id);
+
+		$this->db->where('ID_KATEGORI',$id);
+		$this->db->delete('kategori');
+
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><aria-hidden="true">×</span> </button><b>Success!</b> Data Kategori berhasil dihapus.</div>');
 	}
 

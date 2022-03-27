@@ -15,7 +15,7 @@ function editkategori(e) {
 	})
 	$('#editKategoriModal').modal('show');
 }
-
+ 
 function hapuskategori(e) {
 	$.ajax({
 		url: base_url + "kategori/cek_delete/" + e,
@@ -51,4 +51,26 @@ function hapuskategori(e) {
 			}
 		}
 	});
+}
+
+function delete_kat(id){
+	Swal.fire({
+			title: "Are you sure ?",
+			text: "Deleted data can not be restored!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!"
+		}).then((result) => {
+			if (result.value) {
+				$.ajax({
+					url: base_url + "kategori/hapuskategori/" + id,
+					type: "post",
+					success: function (data) {
+						window.location = base_url + "kategori"
+					}
+				})
+			}
+		})
 }
