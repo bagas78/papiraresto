@@ -7,79 +7,87 @@ $pdf->Cell(0, 7, 'Periode : ' . $awal . ' s/d ' . $akhir, 0, 1, 'C');
 
 $pdf->Cell(189, 10, 'SHIFT - 1', 1, 1, 'C'); 
  
+$in = 1;
+
 for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day')){
 
-$alpha = 1;
+    if ($in == 1) {
 
-foreach ($kategori_data as $kat) {
+        $alpha = 1;
 
-    $pdf->Cell(0, 1, '', 0, 1, 'C');
-     
-    //kategori 
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->SetFont('Times', 'B', 10);
-    $pdf->Cell(189, 8, strtoupper($alpha++ . '. ' . $kat['KATEGORI']), 1, 1);
- 
-    //header
-    $pdf->SetFont('Times', 'B', 8);
-    $pdf->Cell(7, 6, 'NO', 1, 0, 'C');
-    $pdf->Cell(30, 6, 'TGL', 1, 0, 'C');
-    $pdf->Cell(25, 6, 'BARCODE', 1, 0, 'C');
-    $pdf->Cell(58, 6, 'NAMA ITEM', 1, 0, 'C');
-    $pdf->Cell(11, 6, 'STOK', 1, 0, 'C');
-    $pdf->Cell(18, 6, 'ACTUAL', 1, 0, 'C');
-    $pdf->Cell(15, 6, 'SELISIH', 1, 0, 'C');
-    $pdf->Cell(25, 6, 'USER', 1, 1, 'C');
+        foreach ($kategori_data as $kat) {
 
-    $i = 1;
-    foreach ($barang_data as $bar) {
+            $pdf->Cell(0, 1, '', 0, 1, 'C');
+             
+            //kategori 
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(189, 8, strtoupper($alpha++ . '. ' . $kat['KATEGORI']), 1, 1);
+         
+            //header
+            $pdf->SetFont('Times', 'B', 8);
+            $pdf->Cell(7, 6, 'NO', 1, 0, 'C');
+            $pdf->Cell(30, 6, 'TGL', 1, 0, 'C');
+            $pdf->Cell(25, 6, 'BARCODE', 1, 0, 'C');
+            $pdf->Cell(58, 6, 'NAMA ITEM', 1, 0, 'C');
+            $pdf->Cell(11, 6, 'STOK', 1, 0, 'C');
+            $pdf->Cell(18, 6, 'ACTUAL', 1, 0, 'C');
+            $pdf->Cell(15, 6, 'SELISIH', 1, 0, 'C');
+            $pdf->Cell(25, 6, 'USER', 1, 1, 'C');
 
-        if ($kat['ID_KATEGORI'] == $bar['ID_KATEGORI']){
+            $i = 1;
+            foreach ($barang_data as $bar) {
 
-            //body
-            $pdf->SetFont('Times', '', 9);
-            $pdf->Cell(7, 6, $i, 1, 0, 'C');
-            $pdf->Cell(30, 6, $d->format("d / m / Y"), 1, 0, 'C');
-            $pdf->Cell(25, 6, '-', 1, 0, 'C');
-            $pdf->Cell(58, 6, $bar['NAMA_BARANG'], 1, 0);
+                if ($kat['ID_KATEGORI'] == $bar['ID_KATEGORI']){
 
-            $ok = '';
-            foreach ($opname_data as $op) {
+                    //body
+                    $pdf->SetFont('Times', '', 9);
+                    $pdf->Cell(7, 6, $i, 1, 0, 'C');
+                    $pdf->Cell(30, 6, $d->format("d / m / Y"), 1, 0, 'C');
+                    $pdf->Cell(25, 6, '-', 1, 0, 'C');
+                    $pdf->Cell(58, 6, $bar['NAMA_BARANG'], 1, 0);
 
-                $dt = date_create($op['opname_tanggal']);
+                    $ok = '';
+                    foreach ($opname_data as $op) {
 
-                if (date_format($dt, 'Y-m-d') == $d->format("Y-m-d") && $bar['ID_BARANG'] == $op['opname_barang']) {
-                    // ada 
-                    $pdf->Cell(11, 6, $op['opname_stok'], 1, 0, 'R');       
-                    $pdf->Cell(18, 6, $op['opname_stok_actual'], 1, 0, 'R');
+                        $dt = date_create($op['opname_tanggal']);
 
-                    $pdf->Cell(15, 6, $op['opname_stok_selisih'], 1, 0, 'R');
+                        if (date_format($dt, 'Y-m-d') == $d->format("Y-m-d") && $bar['ID_BARANG'] == $op['opname_barang']) {
+                            // ada 
+                            $pdf->Cell(11, 6, $op['opname_stok'], 1, 0, 'R');       
+                            $pdf->Cell(18, 6, $op['opname_stok_actual'], 1, 0, 'R');
 
-                    $pdf->Cell(25, 6, $op['NAMA_LENGKAP'], 1, 0, 'C');
+                            $pdf->Cell(15, 6, $op['opname_stok_selisih'], 1, 0, 'R');
 
-                    $ok = 1;
+                            $pdf->Cell(25, 6, $op['NAMA_LENGKAP'], 1, 0, 'C');
+
+                            $ok = 1;
+                        }
+                    }
+
+                    if ($ok != 1) {
+                        //tidak ada
+                        $pdf->Cell(11, 6, $bar['STOK'], 1, 0, 'R');       
+                        $pdf->Cell(18, 6, ' ', 1, 0, 'R');
+
+                        $pdf->Cell(15, 6, ' ', 1, 0, 'R');
+
+                        $pdf->Cell(25, 6, ' ', 1, 0, 'C');
+                    }
+
+                    $pdf->Cell(30, 6, '', 0, 1);
+
+                    $i++;
                 }
             }
 
-            if ($ok != 1) {
-                //tidak ada
-                $pdf->Cell(11, 6, $bar['STOK'], 1, 0, 'R');       
-                $pdf->Cell(18, 6, ' ', 1, 0, 'R');
-
-                $pdf->Cell(15, 6, ' ', 1, 0, 'R');
-
-                $pdf->Cell(25, 6, ' ', 1, 0, 'C');
-            }
-
-            $pdf->Cell(30, 6, '', 0, 1);
-
-            $i++;
         }
+
+        $pdf->Cell(0, 2, '', 0, 1, 'C');
+
     }
 
-}
-
-$pdf->Cell(0, 2, '', 0, 1, 'C');
+$in ++;
 
 }
 
