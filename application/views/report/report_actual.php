@@ -28,7 +28,7 @@ for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day'))
             $pdf->SetFont('Times', 'B', 8);
             $pdf->Cell(7, 6, 'NO', 1, 0, 'C');
             $pdf->Cell(30, 6, 'TGL', 1, 0, 'C');
-            $pdf->Cell(25, 6, 'BARCODE', 1, 0, 'C');
+            // $pdf->Cell(25, 6, 'BARCODE', 1, 0, 'C');
             $pdf->Cell(58, 6, 'NAMA ITEM', 1, 0, 'C');
             $pdf->Cell(11, 6, 'STOK', 1, 0, 'C');
             $pdf->Cell(18, 6, 'ACTUAL', 1, 0, 'C');
@@ -44,7 +44,7 @@ for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day'))
                     $pdf->SetFont('Times', '', 9);
                     $pdf->Cell(7, 6, $i, 1, 0, 'C');
                     $pdf->Cell(30, 6, $d->format("d / m / Y"), 1, 0, 'C');
-                    $pdf->Cell(25, 6, '-', 1, 0, 'C');
+                    // $pdf->Cell(25, 6, '-', 1, 0, 'C');
                     $pdf->Cell(58, 6, $bar['NAMA_BARANG'], 1, 0);
 
                     $ok = '';
