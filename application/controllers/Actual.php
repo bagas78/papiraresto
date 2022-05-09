@@ -12,7 +12,7 @@ class Actual extends CI_Controller
 		$this->load->model('Stokopname_m');
 		date_default_timezone_set('Asia/Jakarta');
 	}  
-
+ 
 	public function index() 
 	{
 		$data = array(
@@ -47,7 +47,7 @@ class Actual extends CI_Controller
 	public function save(){
 		$user = $this->session->userdata('id_user');
 		@$id_actual = $_POST['id_actual'];
-		$id_barang = $_POST['id_barang'];
+		$id_barang = $_POST['id_barang']; 
 		
 		//selisih
 		$barang = $this->db->query("SELECT * FROM barang WHERE ID_BARANG = '$id_barang'")->row_array();
@@ -168,7 +168,10 @@ class Actual extends CI_Controller
 
 		$data['kategori_data'] = $this->db->query("SELECT * FROM barang AS a JOIN kategori AS b ON a.ID_KATEGORI = b.ID_KATEGORI WHERE a.IS_ACTIVE = 1 AND b.KATEGORI_IS_BARANG = 1 GROUP BY a.ID_KATEGORI")->result_array();
 		$data['barang_data'] = $this->db->query("SELECT * FROM barang WHERE IS_ACTIVE = 1")->result_array();
-		$data['opname_data'] = $this->db->query("SELECT * FROM t_opname as a JOIN user as b ON a.opname_user = b.ID_USER")->result_array();
+
+		$a = $data['awal'];
+		$b = $data['akhir'];
+		$data['opname_data'] = $this->db->query("SELECT * FROM t_opname as a JOIN user as b ON a.opname_user = b.ID_USER WHERE DATE_FORMAT(a.opname_tanggal, '%Y-%m-%d') between '$a' AND '$b'")->result_array();
 
 		$this->load->view('report/report_actual',$data);
 	}

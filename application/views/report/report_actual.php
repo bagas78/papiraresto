@@ -12,7 +12,7 @@ $in = 1;
 for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day')){
 
     if ($in == 1) {
-
+ 
         $alpha = 1;
 
         foreach ($kategori_data as $kat) {
@@ -52,7 +52,7 @@ for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day'))
 
                         $dt = date_create($op['opname_tanggal']);
 
-                        if (date_format($dt, 'Y-m-d') == $d->format("Y-m-d") && $bar['ID_BARANG'] == $op['opname_barang']) {
+                        if ($bar['ID_BARANG'] == $op['opname_barang']) {
                             // ada 
                             $pdf->Cell(11, 6, $op['opname_stok'], 1, 0, 'R');       
                             $pdf->Cell(18, 6, $op['opname_stok_actual'], 1, 0, 'R');
@@ -68,9 +68,9 @@ for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day'))
                     if ($ok != 1) {
                         //tidak ada
                         $pdf->Cell(11, 6, $bar['STOK'], 1, 0, 'R');       
-                        $pdf->Cell(18, 6, ' ', 1, 0, 'R');
+                        $pdf->Cell(18, 6, 0, 1, 0, 'R');
 
-                        $pdf->Cell(15, 6, ' ', 1, 0, 'R');
+                        $pdf->Cell(15, 6, $bar['STOK'] - 0, 1, 0, 'R');
 
                         $pdf->Cell(25, 6, ' ', 1, 0, 'C');
                     }
