@@ -70,7 +70,7 @@ for ($d = new DateTime($awal); $d <= new DateTime($akhir); $d->modify('+1 day'))
                         $pdf->Cell(11, 6, $bar['STOK'], 1, 0, 'R');       
                         $pdf->Cell(18, 6, 0, 1, 0, 'R');
 
-                        $pdf->Cell(15, 6, $bar['STOK'] - 0, 1, 0, 'R');
+                        $pdf->Cell(15, 6, 0 - $bar['STOK'], 1, 0, 'R');
 
                         $pdf->Cell(25, 6, ' ', 1, 0, 'C');
                     }
